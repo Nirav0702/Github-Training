@@ -56,3 +56,12 @@ jobs:
             GITHUB_TOKEN: ${{secrets.GITHUBTRAINING}}
         run: |
           git push origin feature_branch
+
+      # - name: Comment on Pull Request
+      #   env:
+      #     GITHUB_TOKEN: ${{secrets.GITHUBTRAINING}}
+      #   run: |
+      #     PR_NUMBER=${{ github.event.pull_request.number }}
+      #     curl -X POST -H “Authorization: token $GITHUB_TOKEN” \
+      #     -d ‘{”body”: “Thanks you for your contribution”}’ \
+      #     https://api.github.com/repos/OWNER/REPO/issues/$PR_NUMBER/comments
