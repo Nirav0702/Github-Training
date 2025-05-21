@@ -55,4 +55,4 @@ jobs:
         env:
             GITHUB_TOKEN: ${{secrets.GITHUBTRAINING}}
         run: |
-          git push origin feature_branch-branch
+          git push origin feature_branch
