@@ -60,11 +60,31 @@ jobs:
       #   run: |
       #     git push origin feature_branch
 
-      - name: Comment on Pull Request
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUBTRAINING}}
+      # - name: Comment on Pull Request
+      #   env:
+      #     GITHUB_TOKEN: ${{secrets.GITHUBTRAINING}}
+      #   run: |
+      #     PR_NUMBER=${{ github.event.pull_request.number }}
+      #     curl -X POST -H “Authorization: token $GITHUB_TOKEN” \
+      #     -d '{"body": "Thanks you for your contribution"}' \
+      #     https://api.github.com/repos/Nirav0702/Github-Training/issues/$PR_NUMBER/comments
+
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+
+      - name: Checkout another repo
+        uses: actions/checkout@v2
+        with:
+          repository: Nirav0702/Github-Training
+          token: ${{secrets.GITHUBTRAINING}}
+          path: other-repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: '3.x'
+
+      - name: Run Python script
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          curl -X POST -H “Authorization: token $GITHUB_TOKEN” \
-          -d '{"body": "Thanks you for your contribution"}' \
-          https://api.github.com/repos/Nirav0702/Github-Training/issues/$PR_NUMBER/comments
+          cd other-repo
+          python script.py
